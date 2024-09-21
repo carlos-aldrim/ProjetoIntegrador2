@@ -1,9 +1,8 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { UserProvider } from "./context/UserContext";
 import "./index.css";
 import { Router } from "./routes";
-import { FormStepsProvider } from "./context/UseFormSteps";
+import { FormStepsProvider, UserProvider } from "./context";
 
 export function App() {
   return (

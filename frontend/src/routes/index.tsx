@@ -1,16 +1,14 @@
 import { Routes, Route } from "react-router-dom";
-import { LoginPage } from "../pages/LoginPage";
-import { TokenPage } from "../pages/TokenPage";
-import { PrivateRouter } from "../components/privateRouter";
-import { useUser } from "../context/UserContext";
-import { RegisterPage } from "../pages/RegisterPage";
+import { PrivateRouter } from "../components";
+import { useUser } from "../hooks/UseUser";
+import { SignInPage, TokenPage, SignUpPage } from "../pages";
 
 export const Router = () => {
-  const { isLogin, isAuth } = useUser();
+  const { isLogin } = useUser();
 
   return (
     <Routes>
-      <Route path="/" element={<LoginPage />} />
+      <Route path="/" element={<SignInPage />} />
 
       <Route
         path="/confirm-token"
@@ -25,7 +23,7 @@ export const Router = () => {
         path="/signup"
         element={
           <PrivateRouter auth={true}>
-            <RegisterPage />
+            <SignUpPage />
           </PrivateRouter>
         }
       />
