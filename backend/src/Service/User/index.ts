@@ -1,6 +1,5 @@
-import { prisma } from "../../Config/db/prisma";
 import { SaveUserDTO } from "../../DTO/User/SaveUserDTO";
-import { updateUserDTO } from "../../DTO/User/UpdateUserDTO";
+import { UpdateUserDTO } from "../../DTO/User/UpdateUserDTO";
 import { AppLogger } from "../../Logger/AppLogger";
 import { UserRepository } from "../../Repository/User";
 import { encrypt } from "../../Util/Cryptography";
@@ -8,12 +7,12 @@ import { encrypt } from "../../Util/Cryptography";
 export class UserService {
   constructor(private userRepository: UserRepository) {}
 
-  async Save({ name, mail, password, image }: SaveUserDTO) {
+  async Save({ mail, password, image, person }: SaveUserDTO) {
     try {
       const user = await this.userRepository.Save({
         mail,
         image,
-        name,
+        person,
         password: encrypt(password),
       });
       return user;
@@ -44,13 +43,13 @@ export class UserService {
   }
 
   async Update(
-    { isActive, name, mail, password, image }: updateUserDTO,
+    { isActive, mail, password, image, person }: UpdateUserDTO,
     id: string
   ) {
     try {
       const encryptedPassword = password ? encrypt(password) : password;
       const userUpdate = await this.userRepository.Update(
-        { isActive, name, mail, password: encryptedPassword, image },
+        { isActive, mail, password: encryptedPassword, image, person },
         id
       );
       return userUpdate;
@@ -68,7 +67,7 @@ export class UserService {
       new AppLogger().error(error);
       return null;
     }
-  }
+  }  
 
   async FindUserById(id: string) {
     try {
@@ -78,5 +77,5 @@ export class UserService {
       new AppLogger().error(error);
       return null;
     }
-  }
+  }  
 }

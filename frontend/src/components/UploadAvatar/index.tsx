@@ -92,7 +92,7 @@ export const UploadAvatar: React.FC<UploadAvatarProps> = ({
                   src={previewUploadFile || ""}
                   onClick={() => setIsVisibleImageGallery(true)}
                   alt="foto de perfil"
-                  className="h-16 w-16 mt-1 cursor-pointer rounded-md border-2 border-blue-200 shadow-lg relative"
+                  className="h-16 w-auto max-w-28 mt-1 cursor-pointer rounded-md border-2 border-blue-200 shadow-lg relative"
                 />
               </div>
             </div>

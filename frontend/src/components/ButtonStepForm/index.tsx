@@ -7,7 +7,7 @@ export const ButtonStepForm: React.FC = () => {
 
   return (
     <div className="flex items-center gap-6">
-      <button className="text-gray-100">
+      <div className="text-gray-100">
         <RenderConditional condition={currentStep === 0}>
           <Link to="/">Voltar para login</Link>
         </RenderConditional>
@@ -15,7 +15,7 @@ export const ButtonStepForm: React.FC = () => {
         <RenderConditional condition={currentStep !== 0}>
           <button onClick={goToPreviousStep}>Voltar</button>
         </RenderConditional>
-      </button>
+      </div>
 
       <button className="py-2 px-5 bg-[#333] rounded-[4px] text-white">
         Próximo

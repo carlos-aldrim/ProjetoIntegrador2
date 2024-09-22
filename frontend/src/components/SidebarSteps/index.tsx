@@ -43,7 +43,7 @@ export const SidebarSteps: React.FC<SidebarStepsProps> = ({ currentStep }) => {
 
   return (
     <div className="bg-[hsl(99,58%,52%)] h-full p-8 pr-20 hidden flex-col items-center justify-center gap-6 w-full md:flex">
-      <div className="hidden flex-col justify-center gap-10 max-h-screen w-4/5 border-zinc-800 border-r-2 relative md:flex">
+      <div className="hidden flex-col justify-between gap-12 max-h-screen w-4/5 border-zinc-800 border-r-2 relative md:flex">
         {steps.map((item, index) => {
           return (
             <div className="flex items-center" key={item.id}>
@@ -56,7 +56,7 @@ export const SidebarSteps: React.FC<SidebarStepsProps> = ({ currentStep }) => {
                 </span>
               </div>
               <div
-                className={`absolute -right-[26px] w-12 h-12 rounded-full flex items-center justify-center bg-[hsl(99,58%,52%)] border-2 border-zinc-800 ${
+                className={`absolute -right-[30px] w-14 h-14 rounded-full flex items-center justify-center bg-[hsl(99,58%,52%)] border-2 border-zinc-800 ${
                   activated >= index + 1 && "!bg-zinc-800 !border-0"
                 } ${
                   activated === index &&
@@ -64,11 +64,11 @@ export const SidebarSteps: React.FC<SidebarStepsProps> = ({ currentStep }) => {
                 }`}
               >
                 {activated >= index + 1 ? (
-                  <CheckCircleIcon className="!text-[hsl(99,58%,52%)] h-12 w-12" />
+                  <CheckCircleIcon className="!text-[hsl(99,58%,52%)] w-[50px] h-[50px]" />
                 ) : (
                   React.cloneElement(item.icon, {
                     className: `text-zinc-800 h-7 w-7 ${
-                      activated === index ? "!text-[hsl(99,58%,52%)] rounded-full border-[2.95px] border-[hsl(99,58%,52%)] h-[40px] w-[40px] p-1" : ""
+                      activated === index ? "!text-[hsl(99,58%,52%)] rounded-full border-2 border-[hsl(99,58%,52%)] h-[45px] w-[45px] p-1" : ""
                     }`,
                   })
                 )}

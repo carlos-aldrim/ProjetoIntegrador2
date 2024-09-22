@@ -16,11 +16,17 @@ export const Name: React.FC = () => {
   const [avatar, setAvatar] = useState<File[]>([]);
 
   const onSubmit = (values: any) => {
+    const { firstName, lastName } = values;
+    
     updateFormData({
-      avatar: avatar.length > 0 ? avatar : "",
-      ...values,
+      image: avatar.length > 0 ? avatar : null,
+      person: {
+        ...values,
+        firstName,
+        lastName
+      }
     });
-
+  
     goToNextStep();
   };
 

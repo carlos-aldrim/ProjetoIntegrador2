@@ -1,3 +1,4 @@
+import { DataCreateUser } from "./dataCreateUser";
 import { User } from "./user";
 
 export interface UserContextType {
@@ -8,4 +9,5 @@ export interface UserContextType {
   isLogin: boolean;
   loading: boolean;
   isAuth: boolean;
+  createUser: (user: DataCreateUser) => Promise<void>;
 }

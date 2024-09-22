@@ -12,19 +12,53 @@ generator erd {
 }
 
 model User {
-    id              String  @id @default(uuid())
-    name            String
-    mail            String  @unique
+    id              String   @id @default(uuid())
+    mail            String   @unique
     password        String
     image           String?
-    isActive        Boolean @default(false)
-    recoverPassword String? @default(uuid())
+    isActive        Boolean  @default(false)
+    recoverPassword String?  @default(uuid())
     verificationToken VerificationToken[]
+    person          Person   @relation(fields: [personId], references: [id])
+    personId        String   @unique
+    creationDate    DateTime
+    updateDate      DateTime
+    deletionDate    DateTime?
+
+    @@map("users")
+}
+
+model Address {
+    id                String  @id @default(uuid())
+    zipCode           String
+    addressLine       String
+    addressLineNumber String
+    neighborhood      String
+    city              String
+    state             String
+    person            Person @relation(fields: [personId], references: [id])
+    personId          String @unique
     creationDate    DateTime
     updateDate      DateTime
     deletionDate    DateTime?
     
-    @@map("users")
+    @@map("addresses")
+}
+
+model Person {
+    id        String   @id @default(uuid())
+    firstName String
+    lastName  String
+    cpf       String   @unique
+    birthDate DateTime
+    phone     String
+    user      User?
+    address   Address?
+    creationDate    DateTime
+    updateDate      DateTime
+    deletionDate    DateTime?
+
+    @@map("persons")
 }
 
 model VerificationToken {

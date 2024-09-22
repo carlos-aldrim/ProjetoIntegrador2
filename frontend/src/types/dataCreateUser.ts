@@ -1,12 +1,8 @@
-import { Address } from "./address";
+import { Person } from "./person";
 
 export interface DataCreateUser {
-  firstName: string;
-  lastName: string;
-  email: string;
-  cpf: string;
-  phone: string;
-  birthDate: string;
-  address: Address;
+  mail: string;
   password: string;
+  image?: File[] | null;
+  person: Person;
 }

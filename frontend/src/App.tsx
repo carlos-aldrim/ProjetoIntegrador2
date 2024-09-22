@@ -7,12 +7,12 @@ import { FormStepsProvider, UserProvider } from "./context";
 export function App() {
   return (
     <div className="font-[sans-serif] flex w-full min-h-screen bg-zinc-800">
-      <FormStepsProvider>
-        <UserProvider>
+      <UserProvider>
+        <FormStepsProvider>
           <Router />
           <ToastContainer />
-        </UserProvider>
-      </FormStepsProvider>
+        </FormStepsProvider>
+      </UserProvider>
     </div>
   );
 }

@@ -1,31 +1,58 @@
 import { useState, useCallback, useMemo, createContext } from "react";
 import { FormStepsContextType, DataCreateUser } from "../../types";
+import { steps } from "../../components";
 
-export const FormStepsContext = createContext<FormStepsContextType | undefined>(undefined);
+export const FormStepsContext = createContext<FormStepsContextType | undefined>(
+  undefined
+);
 
-export const FormStepsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [createUserData, setCreateUserData] = useState<DataCreateUser>({} as DataCreateUser);
+export const FormStepsProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const [createUserData, setCreateUserData] = useState<DataCreateUser>(
+    {} as DataCreateUser
+  );
   const [currentStep, setCurrentStep] = useState(0);
 
-  const updateFormData = useCallback((data: Partial<DataCreateUser>) => {
-    setCreateUserData((prevData: any) => ({ ...prevData, ...data }));
-  }, []);
+  const updateFormData = useCallback(
+    (data: Partial<DataCreateUser>) => {
+      setCreateUserData((prevData: any) => ({ ...prevData, ...data }));
+    },
+    []
+  );
 
   const goToNextStep = useCallback(() => {
-    setCurrentStep((prevStep) => prevStep + 1);
-  }, []);
+    if (currentStep > steps.length) {
+      return;
+    }
+
+    setCurrentStep((prevState) => prevState + 1);
+  }, [currentStep]);
 
   const goToPreviousStep = useCallback(() => {
-    setCurrentStep((prevStep) => Math.max(prevStep - 1, 0));
-  }, []);
+    if (currentStep === 0) {
+      return;
+    }
 
-  const value = useMemo(() => ({
-    data: createUserData,
-    currentStep,
-    updateFormData,
-    goToNextStep,
-    goToPreviousStep,
-  }), [createUserData, currentStep, updateFormData, goToNextStep, goToPreviousStep]);
+    setCurrentStep((prevState) => prevState - 1);
+  }, [currentStep]);
+
+  const value = useMemo(
+    () => ({
+      data: createUserData,
+      currentStep,
+      updateFormData,
+      goToNextStep,
+      goToPreviousStep,
+    }),
+    [
+      createUserData,
+      currentStep,
+      updateFormData,
+      goToNextStep,
+      goToPreviousStep,
+    ]
+  );
 
   return (
     <FormStepsContext.Provider value={value}>

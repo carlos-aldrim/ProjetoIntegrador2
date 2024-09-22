@@ -1,12 +1,17 @@
 import { Request, Response } from "express";
-import { updateUserDTO } from "../../DTO/User/UpdateUserDTO";
 import { prisma } from "../../Config/db/prisma";
 import { UserRepository } from "../../Repository/User";
 import { UserService } from "../../Service/User";
+import { UpdateUserDTO } from "../../DTO/User/UpdateUserDTO";
 
 export class UpdateUserController {
   async execute(req: Request, res: Response) {
-    const { isActive, mail, image, name, password }: updateUserDTO = req.body;
+    const { isActive, mail, image, password, person }: UpdateUserDTO = req.body;
+
+    if (!mail) {
+      return res.status(400).send({ message: "O campo email é obrigatório!" });
+    }
+
     const id = req.user_id;
 
     const userRepository = new UserRepository(prisma);
@@ -17,16 +22,17 @@ export class UpdateUserController {
         isActive,
         mail,
         image,
-        name,
         password,
+        person
       },
       id
     );
 
     if (!user) {
-      return res.send({ message: "Erro ao atualizar usuário!" }).status(400);
+      return res.status(400).send({ message: "Erro ao atualizar usuário!" });
     }
 
-    return res.send({ message: "Usuário atualizado com sucesso!" }).status(200);
+    return res.status(200).send({ message: "Usuário atualizado com sucesso!" });
   }
 }
+

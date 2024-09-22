@@ -14,3 +14,5 @@ export * from "./TextInputMask";
 export * from "./TokenInput";
 export * from "./UploadAvatar";
 export * from "./Login";
+export * from "./Identification";
+export * from "./Security";

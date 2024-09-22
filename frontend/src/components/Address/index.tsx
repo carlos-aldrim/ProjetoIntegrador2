@@ -6,48 +6,61 @@ import { ButtonStepForm } from "../ButtonStepForm";
 import { SpinnerLoading } from "../SpinnerLoading";
 import { ControllerInputMask } from "../ControllerInputMask";
 import { ControllerTextInput } from "../ControllerTextInput";
+import { useFormSteps, useGetAdressByViaCep } from "../../hooks";
 
 export const Address: React.FC = () => {
   const { control, handleSubmit, getValues, setValue } = useForm({
     resolver: yupResolver(addressValidation),
   });
 
-  const { handleNextStep, handleOnChangeTextInput } = useFormStep();
-  const [cep, setCep] = useState('');
+  const { goToNextStep, updateFormData, data: info } = useFormSteps();
+  const [cep, setCep] = useState("");
 
   const { data, isLoading, refetch } = useGetAdressByViaCep(cep);
 
-  const onSubmit = (values: any) => {
-    handleOnChangeTextInput({
-      address: {
-        ...values,
+  const onSubmit = (values: any) => {  
+    updateFormData({
+      person: {
+        ...info.person,
+        address: {
+          ...values
+        }
       },
     });
-    handleNextStep();
-  };
+  
+    goToNextStep();
+  };  
 
   const handleBlurInputCep = () => {
-    const cepValue = getValues("zipCode");
-    setCep(cepValue);
+    const cepValue = getValues("zipCode").replace(/\D/g, "");
+    if (cepValue.length === 8) {
+      setCep(cepValue);
+    }
   };
 
   useEffect(() => {
-    if (cep) {
-      refetch()
-    }
-  }, [cep])
+    const delayDebounceFn = setTimeout(() => {
+      if (cep) {
+        refetch();
+      }
+    }, 500);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [cep, refetch]);
 
   useEffect(() => {
-    if (!!data) {
+    if (data && data.bairro && data.logradouro && data.localidade && data.uf) {
       setValue("neighborhood", data.bairro);
       setValue("addressLine", data.logradouro);
+      setValue("city", data.localidade);
+      setValue("state", data.uf);
     }
-  }, [data]);
+  }, [data, setValue]);
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-6 mt-4"
+      className="flex flex-col gap-6 w-full h-full justify-center p-8"
     >
       <div className="flex gap-4 w-full items-center justify-between mb-4">
         <ControllerInputMask
@@ -88,18 +101,27 @@ export const Address: React.FC = () => {
         />
       </div>
 
+      <div className="flex gap-4 w-full items-center justify-between">
+        <ControllerTextInput
+          control={control}
+          name="city"
+          label="Cidade"
+          placeholder="Digite a cidade"
+        />
+        <ControllerTextInput
+          control={control}
+          name="state"
+          label="Estado"
+          placeholder="Digite o estado"
+          rightIcon={
+            isLoading && <SpinnerLoading size="SMALL" color="gray-300" />
+          }
+        />
+      </div>
+
       <div className="flex justify-end items-end mt-10">
         <ButtonStepForm />
       </div>
     </form>
   );
 };
-
-function useFormStep(): { handleNextStep: any; handleOnChangeTextInput: any; } {
-    throw new Error("Function not implemented.");
-}
-
-
-function useGetAdressByViaCep(cep: string): { data: any; isLoading: any; refetch: any; } {
-    throw new Error("Function not implemented.");
-}

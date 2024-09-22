@@ -13,9 +13,9 @@ export class DeleteUserController {
     const userDelete = await userService.Delete(id);
 
     if (!userDelete) {
-      return res.send({ message: "Houve um erro ao apagar conta" }).status(400);
+      return res.status(400).send({ message: "Houve um erro ao apagar conta" });
     }
 
-    return res.send({ message: "Conta apagada com sucesso" }).status(200);
+    return res.status(200).send({ message: "Conta apagada com sucesso" });
   }
 }

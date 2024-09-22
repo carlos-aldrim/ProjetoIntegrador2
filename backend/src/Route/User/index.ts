@@ -18,9 +18,9 @@ const deleteUserController = new DeleteUserController();
 const currentUserController = new CurrentUserController();
 const confirmTokenUserController = new ConfirmTokenUserController();
 
-userRoutes.post("/cadastrar", createUserController.execute);
+userRoutes.post("/new-user", createUserController.execute);
 userRoutes.post("/login", loginUserController.execute);
 userRoutes.post("/confirm-token", confirmTokenUserController.execute);
-userRoutes.post("/atualizar", ensureAutheticated, updateUserController.execute);
-userRoutes.get("/apagar-conta", ensureAutheticated, deleteUserController.execute);
-userRoutes.get("/me", ensureAutheticated, currentUserController.execute);
+userRoutes.post("/update-user", ensureAutheticated, updateUserController.execute);
+userRoutes.get("/delete-user", ensureAutheticated, deleteUserController.execute);
+userRoutes.get("/my", ensureAutheticated, currentUserController.execute);

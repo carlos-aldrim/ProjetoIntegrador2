@@ -13,7 +13,7 @@ export class CurrentUserController {
     const user = await userService.FindUserById(id);
 
     if (!user) {
-      return res.send({ message: "Usuário não encontrado" }).status(400);
+      return res.status(400).send({ message: "Usuário não encontrado" });
     }
 
     return res.status(200).json(user);

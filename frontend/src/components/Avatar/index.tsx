@@ -42,7 +42,7 @@ export const Avatar: React.FC<AvatarProps> = ({
       <div className="absolute top-3 right-3 cursor-pointer" onClick={onClick}>
         <XCircleIcon className="h-10 w-10 text-white" />
       </div>
-      <div className="xl:w-[55vw] flex items-center justify-center px-6 lg:px-0">
+      <div className="xl:w-auto flex items-center justify-center px-6 lg:px-0">
         <img
           src={photoComponent}
           alt="foto do avatar"
