@@ -1,4 +1,8 @@
-# Projeto Integrador 2
+Aqui está a atualização do README com a seção de configuração do `.env` adicionada:
+
+---
+
+## Projeto Integrador 2
 
 ## Descrição do Projeto
 
@@ -81,6 +85,22 @@ Após ajustar o schema do Prisma, execute:
 ```bash
 cd backend && npx prisma migrate dev
 ```
+
+---
+
+## Configuração do `.env`
+
+Para configurar variáveis de ambiente, crie um arquivo `.env` na raiz da pasta `backend` com o seguinte conteúdo:
+
+```env
+JWT_SECRET=e00c58a52af16ecc4c4a7b2a8b8f931d
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USER=seu email
+EMAIL_PASS=senha de aplicativo
+```
+
+Substitua os valores das variáveis `EMAIL_USER` e `EMAIL_PASS` com suas próprias informações. Para gerar a **senha de aplicativo**, siga as instruções no [site do Google](https://support.google.com/accounts/answer/185833?hl=pt-BR).
 
 ---
 
@@ -179,4 +199,3 @@ git push origin feature/US000001
 6. Abra um Pull Request no repositório original.
 
 ---
-
