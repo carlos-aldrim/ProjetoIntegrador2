@@ -1,7 +1,3 @@
-Aqui está a atualização do README com a seção de configuração do `.env` adicionada:
-
----
-
 ## Projeto Integrador 2
 
 ## Descrição do Projeto
